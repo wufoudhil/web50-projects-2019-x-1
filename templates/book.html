@@ -1,0 +1,481 @@
+{% extends "layout.html" %}
+{% block heading %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style type="text/css">
+
+  body {
+      line-height: 24px;
+
+  }
+
+
+  .user{
+    display: block;
+    width: 100%;
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 10px;
+  }
+
+  .alert{
+    text-align: center;
+    height: 60px;
+  }
+
+  .head{
+    text-align: center;
+  }
+
+  .rating {
+    display: inline-block;
+    position: relative;
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+  }
+
+  .rating label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .rating label:last-child {
+    position: static;
+  }
+
+  .rating label:nth-child(1) {
+    z-index: 5;
+  }
+
+  .rating label:nth-child(2) {
+    z-index: 4;
+  }
+
+  .rating label:nth-child(3) {
+    z-index: 3;
+  }
+
+  .rating label:nth-child(4) {
+    z-index: 2;
+  }
+
+  .rating label:nth-child(5) {
+    z-index: 1;
+  }
+
+  .rating label input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+
+  .rating label .icon {
+    float: left;
+    color: transparent;
+  }
+
+  .rating label:last-child .icon {
+    color: #000;
+  }
+
+  .rating:not(:hover) label input:checked ~ .icon{
+    color: #ffe100;
+  }
+  .rating:hover label:hover input ~ .icon {
+    color: #ffe100;
+  }
+
+  .rating label input:focus:not(:checked) ~ .icon:last-child {
+    color: #000;
+    text-shadow: 0 0 5px #ffe100;
+  }
+
+  input[type=submit] {
+  background-color: #d1a104;
+  color: white;
+  padding: 5px 7px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+body {
+    line-height: 24px;
+}
+section {
+    float: left;
+    width: 100%;
+    margin-top:3em;
+    margin-bottom:2em;
+}
+
+h2 {
+    color: #1a0e0e;
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0;
+    line-height: normal;
+	text-transform:uppercase;
+}
+h2 span {
+    display: block;
+    padding: 0;
+    font-size: 18px;
+    opacity: 0.7;
+    margin-top: 5px;
+	text-transform:uppercase;
+}
+
+#float-right{
+	float:right;
+}
+
+.rt-container {
+	margin: 0 auto;
+	padding-left:12px;
+	padding-right:12px;
+}
+
+[class^="col-rt-"] {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  padding: 0 15px;
+  min-height: 1px;
+  position: relative;
+}
+
+
+@media (min-width: 768px) {
+  .rt-container {
+    width: 750px;
+  }
+  [class^="col-rt-"] {
+    float: left;
+    width: 49.9999999999%;
+  }
+  .col-rt-6, .col-rt-12 {
+    width: 100%;
+  }
+
+}
+
+@media (min-width: 1200px) {
+	.rt-container {
+		width: 1170px;
+	}
+	.col-rt-1 {
+		width:16.6%;
+	}
+	.col-rt-2 {
+		width:30.33%;
+	}
+	.col-rt-3 {
+		width:50%;
+	}
+	.col-rt-4 {
+		width: 67.664%;
+	}
+	.col-rt-5 {
+		width: 83.33%;
+	}
+
+
+}
+
+@media only screen and (min-width:240px) and (max-width: 768px){
+	 .ScriptTop h1, .ScriptTop ul {
+		text-align: center;
+	}
+	.ScriptTop h1{
+		margin-top:0;
+		margin-bottom:15px;
+	}
+	.ScriptTop ul{
+		 margin-top:12px;
+	}
+
+	.ScriptHeader h1,
+	.ScriptHeader h2,
+	.scriptnav ul{
+		text-align:center;
+	}
+	.scriptnav ul{
+		 margin-top:12px;
+	}
+	#float-right{
+		float:none;
+	}
+
+}
+
+h2 {
+    border-bottom: 4px solid #DDDDDD;
+	font-size: 22px;
+    font-weight: normal;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+	margin-top:15px;
+
+}
+h3{
+    border-bottom: 1px solid #CCCCCC;
+    clear: both;
+
+    display: block;
+    font: 14px arial;
+    margin-bottom: 10px;
+    padding-bottom: 4px;
+    padding-top: 10px;
+    text-transform: uppercase;
+
+}
+
+
+/*Comments Reader*/
+
+#reader {
+    float: left;
+}
+
+#reader .comment_box {
+    background: none repeat scroll 0 0 white;
+    float: left;
+    margin-bottom: 20px;
+    padding: 5px;
+    box-sizing: content-box;
+    border: 1px solid #CCCCCC;
+    width:100%;
+    min-width: 700px;
+}
+
+#reader .arrow-down {
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 10px solid #CCCCCC;
+	position:relative;
+	top:25px;
+}
+
+#reader .rating{
+  float: right;
+  margin-right: 10px;
+}
+
+
+#reader .comment_box:hover{
+ border: 1px solid #127FBB;
+}
+
+#reader .comment_box img {
+  margin-right: 10px;
+  padding: 3px;
+	float:left;
+  }
+
+#reader .comment-meta {
+    margin-bottom: 4px;
+    overflow: auto;
+}
+
+#reader .commentsuser {
+    float: left;
+	font-size: 12px;
+	color: #000000;
+	font-weight:bold;
+}
+#reader .comment_date {
+    float: right;
+    font-size: 12px;
+	color:#000;
+}
+
+#reader .comment-body {
+    color: #848484;
+    font-size: 12px;
+}
+
+/*Commment Reader Child*/
+
+
+
+#reader ol li ul li .comment_box {
+    margin-left: 5%;
+    width: 95%;
+}
+
+#reader ol li ul ul li .comment_box {
+    margin-left: 10%;
+    width: 90%;
+}
+
+
+#reader ol li ul ul ul li .comment_box {
+    margin-left: 15%;
+    width: 85%;
+}
+
+
+#reader ol li ul ul ul ul li .comment_box {
+    margin-left: 20%;
+    width: 80%;
+}
+
+#respond .commentfields {
+    float: left;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+#respond .cmxform{
+width:620px;
+}
+
+</style>
+{% endblock %}
+
+{% block body %}
+  <div class="user">
+    <b>Welcome:</b> {{ user }}, <a href="{{ url_for('logout') }}">Logout</a>
+  </div>
+  <div class="head">
+    <h1>Book details</h1>
+  </div>
+  {% if no %}
+    <div class="container">
+      <div class="alert alert-warning" role="alert">
+        {{ msg }}
+      </div>
+    </div>
+  {% else %}
+    <div class="container">
+      <ul>
+        {% for dts in bkd %}
+          <li>ISBN:     {{ dts.isbn }}.</li>
+          <li>Title:    {{ dts.title }}.</li>
+          <li>Author:   {{ dts.author }}.</li>
+          <li>Year:     {{ dts.year }}.</li>
+          <li>Rating average:     {{ avgrt }}.</li>
+          <li>N° of Work rating:     {{ wrt }}.</li>
+        {% endfor %}
+      </ul>
+      {% for bkisbn in bkd %}
+          <a href="{{ url_for('api', isbn=bkisbn.isbn) }}">Go to API </a>
+      {% endfor %}
+    </div>
+    <section>
+      <div class="rt-container">
+        <div class="col-rt-12">
+          <div class="content">
+            <h2>({{ rvn }}) Readers Comments </h2>
+            {% for rv in rvws %}
+            <div id="reader">
+                <div class="comment_box"><img src="{{url_for('static', filename='157634393091082655.png')}}" alt="avatar">
+                  <div class="inside_comment">
+                    <div class="comment-meta">
+                      <div class="commentsuser">{{ rv.usrnm }}</div>
+                      <div class="comment_date">{% if rv.rvdate %}{{ rv.rvdate.strftime("%B %d, %Y -  %H:%M") }}{% endif %}</div>
+                    </div>
+                  </div>
+                  <div class="comment-body">
+                    <p>{{ rv.review }}</p>
+                  </div>
+                  <div class="rating">
+                    {% if rv.rating == 0 %}
+                      <img src="{{url_for('static', filename='0stars.jpg')}}" alt="">
+                    {% elif rv.rating == 1 %}
+                      <img src="{{url_for('static', filename='1stars.jpg')}}" alt="">
+                    {% elif rv.rating == 2 %}
+                      <img src="{{url_for('static', filename='2stars.jpg')}}" alt="">
+                    {% elif rv.rating == 3 %}
+                      <img src="{{url_for('static', filename='3stars.jpg')}}" alt="">
+                    {% elif rv.rating == 4 %}
+                      <img src="{{url_for('static', filename='4stars.jpg')}}" alt="">
+                    {% elif rv.rating == 5 %}
+                      <img src="{{url_for('static', filename='5stars.jpg')}}" alt="">
+                    {% endif %}
+                  </div>
+                  <div class="arrow-down"></div>
+                </div>
+              </div>
+              {% endfor %}
+            {% endif %}
+            </div>
+    		</div>
+        </div>
+        {% if p2 %}
+        <div class="container">
+          <div class="alert" role="alert">
+            {{ msg }}
+          </div>
+        </div>
+        {% else %}
+        <div class="container">
+          <div id="respond">
+            <h3>Leave A Comment</h3>
+          </div>
+        </div>
+    </section>
+<form action="{{ url_for('rate_book') }}" method="post">
+  <div class="container">
+    <div class="row justify-content-start">
+      <div class="col-1">
+      </div>
+      <div class="col-7">
+        <textarea name="nwrvu" rows="5" cols="80" placeholder="Write something.." style="height:200px; border-radius: 7px;"></textarea>
+      </div>
+    </div>
+    <div class="row justify-content-between">
+      <div class="col-3">
+      </div>
+      <div class="col-3">
+        <div class="rating">
+          <label>
+            <input type="radio" name="stars" value="1" />
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="2" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="3" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="4" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="stars" value="5" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+        </div>
+        <div class="col-2">
+          <input type="submit" value="Submit">
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+{% endif %}
+{% endblock %}

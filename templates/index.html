@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style type="text/css">
+  #edge{
+  }
+  .user{
+    display: block;
+    width: 100%;
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 10px;
+  }
+
+  .alert-warning, .alert-danger{
+    text-align: center;
+  }
+
+  .head{
+    text-align: center;
+  }
+
+</style>
+{% endblock %}
+
+{% block body %}
+
+<div class="user">
+  <b>Welcome:</b> {{ user }}, <a href="{{ url_for('logout') }}">Logout</a>
+</div>
+<div class="head">
+  <h1>Book review !</h1>
+</div>
+    <form id="srchfrm" name="srchfrm" action="{{ url_for('search') }}" method="post">
+      <div class="col-md-4 offset-md-4 mt-5 pt-3" id="bx">
+      <div class="input-group mb-3">
+        <input type="text" {% if no %} style="border: 1px solid red;" {% endif %} class="form-control" name="srch" placeholder="Search a Book by title, ISBN, author, release year ...">
+        <div class="input-group-append">
+          <button class="input-group-text" type="submit" id="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      </div>
+    </form>
+
+    {% if no %}
+    <div class="container">
+      <div class="alert alert-warning" role="alert">
+        {{ errp }}
+      </div>
+    </div>
+    {% elif empty %}
+    <div class="container">
+      <div class="alert alert-danger" role="alert">
+        {{ errp }}
+      </div>
+    </div>
+    {% else %}
+    <div class="container">
+      <h4>All Maches Books</h4>
+      <ul>
+          {% for book in books %}
+              <li>
+                  <a href="{{ url_for('book', book_id=book.id) }}">
+                      ISBN: {{ book.isbn }}, Title: {{ book.title }}, Author: {{ book.author }}, Year: {{ book.year }}.
+                  </a>
+              </li>
+          {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+{% endblock %}

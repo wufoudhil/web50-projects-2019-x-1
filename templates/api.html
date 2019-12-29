@@ -1,0 +1,128 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style type="text/css">
+  #rvu{
+    /*border: 1px solid black;*/
+  }
+  .user{
+    display: block;
+    width: 100%;
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 10px;
+  }
+
+  .alert-warning, .alert-danger{
+    text-align: center;
+  }
+
+  .head{
+    text-align: center;
+  }
+
+  .rating {
+    display: inline-block;
+    position: relative;
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+  }
+
+  .rating label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .rating label:last-child {
+    position: static;
+  }
+
+  .rating label:nth-child(1) {
+    z-index: 5;
+  }
+
+  .rating label:nth-child(2) {
+    z-index: 4;
+  }
+
+  .rating label:nth-child(3) {
+    z-index: 3;
+  }
+
+  .rating label:nth-child(4) {
+    z-index: 2;
+  }
+
+  .rating label:nth-child(5) {
+    z-index: 1;
+  }
+
+  .rating label input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+
+  .rating label .icon {
+    float: left;
+    color: transparent;
+  }
+
+  .rating label:last-child .icon {
+    color: #000;
+  }
+
+  .rating:not(:hover) label input:checked ~ .icon,
+  .rating:hover label:hover input ~ .icon {
+    color: #ffe100;
+  }
+
+  .rating label input:focus:not(:checked) ~ .icon:last-child {
+    color: #000;
+    text-shadow: 0 0 5px #ffe100;
+  }
+
+  input[type=submit] {
+  background-color: #d1a104;
+  color: white;
+  padding: 5px 7px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+</style>
+{% endblock %}
+
+{% block body %}
+
+<div class="user">
+  <b>Welcome:</b> {{ user }}, <a href="{{ url_for('logout') }}">Logout</a>
+</div>
+<div class="head">
+  <h1>Book details</h1>
+</div>
+  <div class="container">
+    <ul>
+      {% for dts in book %}
+        <li>ISBN:     {{ dts.isbn }}.</li>
+        <li>Title:    {{ dts.title }}.</li>
+        <li>Author:   {{ dts.author }}.</li>
+        <li>Year:     {{ dts.year }}.</li>
+      {% endfor %}
+      {% for rv in rvdti %}
+        <li>N° Reviews:     {{ rv.count }}.</li>
+        <li>Average score:     {{ rv.avg | float }}.</li>
+      {% endfor %}
+    </ul>
+    <a href="#" onclick="window.history.back();">Go back</a>
+  </div>
+{% endblock %}
